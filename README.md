@@ -107,9 +107,3 @@ thuc-hanh-CSS-flex-flow-Property/
    - **`example3.html`**: Xem minh họa trực quan cho `row wrap` và `column wrap`.
 2. Hoặc sử dụng extension **Live Server** trong VS Code để xem với hot-reload.
 
----
-
-## 👨‍💻 Thông tin tác giả
-- **Sinh viên:** Đức Anh Nguyễn
-- **Mã sinh viên:** DTC245200328
-- **Học phần:** Thực tập Cơ sở (TTCS)
