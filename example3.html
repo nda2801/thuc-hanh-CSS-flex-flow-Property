@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ví dụ 3: flex-flow: row wrap & column wrap | CSS Flexbox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #10b981;
+      --bg: #0b1329;
+      --card-bg: #131f37;
+      --code-bg: #0a0f1d;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #233554;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .wrapper {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-bar a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s ease;
+    }
+
+    .nav-bar a:hover {
+      color: #93c5fd;
+      text-decoration: underline;
+    }
+
+    .badge {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid-demo {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 24px;
+    }
+
+    .demo-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .demo-section h2 {
+      font-size: 18px;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+
+    .demo-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Demo A: row wrap */
+    .container-row-wrap {
+      display: flex;
+      flex-flow: row wrap;
+      background: #0d172e;
+      border: 2px dashed #10b981;
+      border-radius: 12px;
+      padding: 16px;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .container-row-wrap .item {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      width: 140px;
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    /* Demo B: column wrap */
+    .container-col-wrap {
+      display: flex;
+      flex-flow: column wrap;
+      height: 220px;
+      background: #0d172e;
+      border: 2px dashed #8b5cf6;
+      border-radius: 12px;
+      padding: 16px;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .container-col-wrap .item {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: white;
+      width: 130px;
+      height: 50px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    pre {
+      padding: 14px 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      background: var(--code-bg);
+      color: #e2e8f0;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .token-prop { color: #38bdf8; }
+    .token-val { color: #34d399; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="nav-bar">
+      <a href="example2.html">← Xem Ví dụ 2: row-reverse nowrap</a>
+      <a href="index.html">Về trang tổng hợp Playground →</a>
+    </div>
+
+    <span class="badge">Ví dụ mở rộng</span>
+    <h1>Bọc dòng: row wrap & column wrap</h1>
+
+    <div class="grid-demo">
+      <div class="demo-section">
+        <h2>Trường hợp 1: flex-flow: row wrap</h2>
+        <p class="demo-desc">Sắp xếp ngang từ trái qua phải, khi hết chiều rộng hàng các phần tử tự động bọc (wrap) xuống hàng tiếp theo.</p>
+        <div class="container-row-wrap">
+          <div class="item">Item 1</div>
+          <div class="item">Item 2</div>
+          <div class="item">Item 3</div>
+          <div class="item">Item 4</div>
+          <div class="item">Item 5</div>
+          <div class="item">Item 6</div>
+          <div class="item">Item 7</div>
+          <div class="item">Item 8</div>
+        </div>
+        <pre><code><span class="token-prop">flex-flow</span>: <span class="token-val">row wrap</span>;</code></pre>
+      </div>
+
+      <div class="demo-section">
+        <h2>Trường hợp 2: flex-flow: column wrap</h2>
+        <p class="demo-desc">Sắp xếp dọc từ trên xuống dưới trong khung có chiều cao cố định (220px). Khi hết chiều cao, các phần tử tự động bọc sang cột tiếp theo bên phải.</p>
+        <div class="container-col-wrap">
+          <div class="item">Item 1</div>
+          <div class="item">Item 2</div>
+          <div class="item">Item 3</div>
+          <div class="item">Item 4</div>
+          <div class="item">Item 5</div>
+          <div class="item">Item 6</div>
+        </div>
+        <pre><code><span class="token-prop">height</span>: 220px;
+<span class="token-prop">flex-flow</span>: <span class="token-val">column wrap</span>;</code></pre>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

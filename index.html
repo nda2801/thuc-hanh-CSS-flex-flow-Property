@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bài thực hành tìm hiểu và tương tác với thuộc tính CSS flex-flow property - shorthand cho flex-direction và flex-wrap.">
+  <title>Thực hành CSS flex-flow Property | Interactive Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="badge-group">
+        <span class="badge badge-primary">CSS Flexbox Master</span>
+        <span class="badge badge-subtle">Shorthand Property</span>
+      </div>
+      <h1 class="main-title">Thuộc tính CSS <code>flex-flow</code></h1>
+      <p class="subtitle">
+        Khám phá thuộc tính viết tắt (shorthand) kết hợp giữa <code>flex-direction</code> và <code>flex-wrap</code> trong mô hình dàn trang Flexbox.
+      </p>
+
+      <!-- Quick Nav to standalone examples -->
+      <nav class="example-links" aria-label="Các ví dụ độc lập">
+        <span class="nav-label">Ví dụ mẫu:</span>
+        <a href="example1.html" class="nav-btn" target="_blank">
+          <span class="dot dot-blue"></span> Ví dụ 1: row nowrap
+        </a>
+        <a href="example2.html" class="nav-btn" target="_blank">
+          <span class="dot dot-pink"></span> Ví dụ 2: row-reverse nowrap
+        </a>
+        <a href="example3.html" class="nav-btn" target="_blank">
+          <span class="dot dot-green"></span> Ví dụ 3: wrap & column
+        </a>
+      </nav>
+    </header>
+
+    <!-- Main Workspace: Interactive Playground -->
+    <main class="main-content">
+      <div class="playground-layout">
+        <!-- Control Panel -->
+        <aside class="control-panel">
+          <div class="panel-header">
+            <h2>Bảng Điều Khiển</h2>
+            <button id="resetBtn" class="btn-icon" title="Khôi phục mặc định">↺</button>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="control-group">
+            <label class="control-title">Cấu hình nhanh (Presets)</label>
+            <div class="presets-grid">
+              <button class="preset-btn active" data-dir="row" data-wrap="nowrap">row nowrap (Mặc định)</button>
+              <button class="preset-btn" data-dir="row-reverse" data-wrap="nowrap">row-reverse nowrap</button>
+              <button class="preset-btn" data-dir="row" data-wrap="wrap">row wrap</button>
+              <button class="preset-btn" data-dir="row-reverse" data-wrap="wrap">row-reverse wrap</button>
+              <button class="preset-btn" data-dir="column" data-wrap="nowrap">column nowrap</button>
+              <button class="preset-btn" data-dir="column" data-wrap="wrap">column wrap</button>
+              <button class="preset-btn" data-dir="column-reverse" data-wrap="wrap">col-reverse wrap</button>
+              <button class="preset-btn" data-dir="row" data-wrap="wrap-reverse">row wrap-reverse</button>
+            </div>
+          </div>
+
+          <!-- Direction Control -->
+          <div class="control-group">
+            <label class="control-title" for="flexDirection">
+              1. flex-direction:
+              <span id="directionValue" class="prop-badge">row</span>
+            </label>
+            <div class="radio-pill-group" id="directionGroup">
+              <label class="radio-pill">
+                <input type="radio" name="direction" value="row" checked>
+                <span>row</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="direction" value="row-reverse">
+                <span>row-reverse</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="direction" value="column">
+                <span>column</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="direction" value="column-reverse">
+                <span>column-reverse</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Wrap Control -->
+          <div class="control-group">
+            <label class="control-title" for="flexWrap">
+              2. flex-wrap:
+              <span id="wrapValue" class="prop-badge">nowrap</span>
+            </label>
+            <div class="radio-pill-group" id="wrapGroup">
+              <label class="radio-pill">
+                <input type="radio" name="wrap" value="nowrap" checked>
+                <span>nowrap</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="wrap" value="wrap">
+                <span>wrap</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="wrap" value="wrap-reverse">
+                <span>wrap-reverse</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Container Controls & Items -->
+          <div class="control-group">
+            <label class="control-title">Số lượng Item: <span id="itemCountLabel">6</span></label>
+            <div class="item-actions">
+              <button id="addItemBtn" class="btn-action">+ Thêm Item</button>
+              <button id="removeItemBtn" class="btn-action btn-danger">- Bớt Item</button>
+            </div>
+          </div>
+
+          <!-- Gap Control -->
+          <div class="control-group">
+            <div class="slider-header">
+              <label class="control-title" for="gapSlider">Khoảng cách gap:</label>
+              <span id="gapValue">16px</span>
+            </div>
+            <input type="range" id="gapSlider" min="0" max="32" value="16" step="4">
+          </div>
+
+          <!-- Container Width Simulation -->
+          <div class="control-group">
+            <div class="slider-header">
+              <label class="control-title" for="containerWidthSlider">Chiều rộng khung thử nghiệm:</label>
+              <span id="containerWidthValue">100%</span>
+            </div>
+            <input type="range" id="containerWidthSlider" min="40" max="100" value="100" step="5">
+          </div>
+        </aside>
+
+        <!-- Visual Canvas & Output -->
+        <section class="visual-canvas-area">
+          <!-- Live Code Banner -->
+          <div class="code-banner">
+            <div class="code-banner-left">
+              <span class="code-tag">CSS THỰC THI HIỆN TẠI</span>
+              <code id="activeCssCode">flex-flow: row nowrap;</code>
+            </div>
+            <button id="copyBtn" class="copy-button" title="Sao chép CSS">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Sao chép</span>
+            </button>
+          </div>
+
+          <!-- Axis Indicator Dynamic Bar -->
+          <div class="axis-guide-card">
+            <div class="axis-item" id="mainAxisGuide">
+              <span class="axis-title">Trục chính (Main Axis):</span>
+              <div class="axis-direction-badge" id="mainAxisText">Ngang (Trái ➔ Phải)</div>
+            </div>
+            <div class="axis-item" id="crossAxisGuide">
+              <span class="axis-title">Hành vi xuống dòng (Wrap):</span>
+              <div class="axis-direction-badge" id="wrapBehaviorText">Không bọc (Một hàng duy nhất)</div>
+            </div>
+          </div>
+
+          <!-- Flexbox Preview Stage -->
+          <div class="preview-stage" id="previewStageWrapper">
+            <div class="flex-container-preview" id="flexPreviewContainer">
+              <div class="flex-item-box" data-index="1">
+                <div class="item-number">1</div>
+                <div class="item-sub">item</div>
+              </div>
+              <div class="flex-item-box" data-index="2">
+                <div class="item-number">2</div>
+                <div class="item-sub">item</div>
+              </div>
+              <div class="flex-item-box" data-index="3">
+                <div class="item-number">3</div>
+                <div class="item-sub">item</div>
+              </div>
+              <div class="flex-item-box" data-index="4">
+                <div class="item-number">4</div>
+                <div class="item-sub">item</div>
+              </div>
+              <div class="flex-item-box" data-index="5">
+                <div class="item-number">5</div>
+                <div class="item-sub">item</div>
+              </div>
+              <div class="flex-item-box" data-index="6">
+                <div class="item-number">6</div>
+                <div class="item-sub">item</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Explanation Alert -->
+          <div class="info-callout" id="dynamicExplanation">
+            <div class="callout-icon">💡</div>
+            <div class="callout-content">
+              <h4 id="explanationTitle">flex-flow: row nowrap</h4>
+              <p id="explanationDesc">
+                Sắp xếp các item theo hàng ngang từ trái sang phải theo hướng văn bản (LTR). Giá trị <code>nowrap</code> ép tất cả phần tử nằm trên một hàng đơn nhất mà không ngắt dòng.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Theory & Documentation Section -->
+      <section class="docs-section">
+        <h2 class="docs-title">Lý thuyết & Kiến thức trọng tâm về <code>flex-flow</code></h2>
+
+        <div class="cards-grid">
+          <!-- Card 1: Bản chất & Cú pháp -->
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="icon-circle icon-blue">⚡</div>
+              <h3>1. Cú pháp & Khái niệm</h3>
+            </div>
+            <p class="doc-text">
+              <code>flex-flow</code> là một thuộc tính viết tắt (shorthand property) trong CSS Flexbox, giúp gộp hai thuộc tính <strong>flex-direction</strong> và <strong>flex-wrap</strong> lại trên một dòng khai báo duy nhất.
+            </p>
+            <div class="code-snippet">
+              <code>flex-flow: &lt;flex-direction&gt; &lt;flex-wrap&gt;;</code>
+            </div>
+            <p class="doc-subtext">
+              Bạn có thể chỉ định 1 giá trị hoặc cả 2 giá trị. Nếu bỏ qua một giá trị, giá trị đó sẽ lấy theo giá trị mặc định (<code>row</code> cho direction, <code>nowrap</code> cho wrap).
+            </p>
+          </div>
+
+          <!-- Card 2: Lưu ý quan trọng -->
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="icon-circle icon-amber">⚠️</div>
+              <h3>2. Lưu ý quan trọng</h3>
+            </div>
+            <p class="doc-text">
+              <strong>Thuộc tính <code>flex-flow</code> chỉ có hiệu lực khi áp dụng trên Flex Container</strong> (phần tử cha có <code>display: flex</code> hoặc <code>display: inline-flex</code>).
+            </p>
+            <ul class="doc-list">
+              <li>Nó trực tiếp định hình cách bố trí của các <strong>flex items</strong> con bên trong.</li>
+              <li>Nếu phần tử không phải là Flex Container, thuộc tính này sẽ hoàn toàn bị trình duyệt bỏ qua không hoạt động.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: So sánh chi tiết các giá trị tiêu biểu -->
+          <div class="doc-card full-span">
+            <div class="doc-card-header">
+              <div class="icon-circle icon-green">📊</div>
+              <h3>3. Bảng tra cứu giá trị thuộc tính <code>flex-flow</code></h3>
+            </div>
+            <div class="table-responsive">
+              <table class="reference-table">
+                <thead>
+                  <tr>
+                    <th>Giá trị flex-flow</th>
+                    <th>Hướng sắp xếp (flex-direction)</th>
+                    <th>Hành vi bọc dòng (flex-wrap)</th>
+                    <th>Ứng dụng thực tế</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>row nowrap</code> <span class="badge-tag">Mặc định</span></td>
+                    <td>Ngang: Trái sang Phải (LTR)</td>
+                    <td>Không xuống dòng</td>
+                    <td>Thanh điều hướng navbar, toolbar một hàng</td>
+                  </tr>
+                  <tr>
+                    <td><code>row-reverse nowrap</code></td>
+                    <td>Ngang: Phải sang Trái (RTL)</td>
+                    <td>Không xuống dòng</td>
+                    <td>Nút đảo ngược thứ tự, bố cục ngôn ngữ RTL</td>
+                  </tr>
+                  <tr>
+                    <td><code>row wrap</code></td>
+                    <td>Ngang: Trái sang Phải (LTR)</td>
+                    <td>Tự động bọc xuống hàng mới</td>
+                    <td>Danh sách thẻ sản phẩm, thẻ tag, thư viện ảnh responsive</td>
+                  </tr>
+                  <tr>
+                    <td><code>row-reverse wrap</code></td>
+                    <td>Ngang: Phải sang Trái (RTL)</td>
+                    <td>Tự động bọc xuống hàng mới</td>
+                    <td>Lưới sản phẩm định hướng từ phải sang trái</td>
+                  </tr>
+                  <tr>
+                    <td><code>column nowrap</code></td>
+                    <td>Dọc: Trên xuống Dưới</td>
+                    <td>Không bọc cột</td>
+                    <td>Thanh bên sidebar, danh sách tin dọc, menu thả xuống</td>
+                  </tr>
+                  <tr>
+                    <td><code>column wrap</code></td>
+                    <td>Dọc: Trên xuống Dưới</td>
+                    <td>Bọc sang cột mới bên phải</td>
+                    <td>Bảng danh mục phân cột dạng báo chí nhiều cột dọc</td>
+                  </tr>
+                  <tr>
+                    <td><code>column-reverse wrap</code></td>
+                    <td>Dọc: Dưới lên Trên</td>
+                    <td>Bọc sang cột mới</td>
+                    <td>Khung trò chuyện chat log đảo ngược dòng thời gian</td>
+                  </tr>
+                  <tr>
+                    <td><code>row wrap-reverse</code></td>
+                    <td>Ngang: Trái sang Phải</td>
+                    <td>Bọc ngược lên hàng phía trên</td>
+                    <td>Bố cục xếp chồng ngược từ đáy lên</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Bài thực hành CSS flex-flow Property &bull; Dự án Thực tập Cơ sở</p>
+      <p class="author">Thực hiện: <strong>Đức Anh Nguyễn</strong> &bull; DTC245200328</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
